@@ -9,22 +9,17 @@ namespace testMagistr
 {
     internal class Entropy
     {
-        public float getEntropy(string path)
+        public float getEntropy(List<string> words)
         {
-            string[] buffer;
             var dictionary = new Dictionary<string, int>();
-            var sr = new StreamReader(path);
-            string text = sr.ReadToEnd();
-            buffer = text.Split(' ');
-            List<string> words = buffer.ToList();
 
-            Mutex mutex= new Mutex();
+            Mutex mutex = new Mutex();
             Parallel.ForEach(words, word =>
             {
                 mutex.WaitOne();
                 try
                 {
-                    dictionary[word]++;   
+                    dictionary[word]++;
                 }
                 catch (Exception)
                 {
@@ -33,10 +28,6 @@ namespace testMagistr
                 mutex.ReleaseMutex();
             });
 
-            //foreach (string word in words)
-            //{
-                
-            //}
             double H = 0;
 
             Parallel.ForEach(words, word =>
@@ -46,13 +37,8 @@ namespace testMagistr
                 mutex.ReleaseMutex();
             });
 
-            //foreach (string word in words)
-            //{
-            //    H += (double)dictionary[word] / words.Count * Math.Log((double)dictionary[word] / words.Count);
-            //}
-            
             H *= -1;
-            return (float) H;
+            return (float)H;
         }
     }
 }
