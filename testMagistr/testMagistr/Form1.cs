@@ -10,6 +10,7 @@ namespace testMagistr
         public Form1()
         {
             InitializeComponent();
+            /*ниче не понять как с этими ветками работать*/
         }
 
         private void button1_Click(object sender, EventArgs e)
