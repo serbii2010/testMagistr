@@ -15,6 +15,7 @@ namespace testMagistr
             var sr = new StreamReader(path);
             string text = sr.ReadToEnd();
             buffer = text.Split(' ');
+
             return  buffer.ToList();
         }
 

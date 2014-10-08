@@ -17,11 +17,11 @@ namespace testMagistr
             Parallel.ForEach(words, word =>
             {
                 mutex.WaitOne();
-                try
+                if (dictionary.ContainsKey(word))
                 {
                     dictionary[word]++;
                 }
-                catch (Exception)
+                else
                 {
                     dictionary.Add(word, 1);
                 }
