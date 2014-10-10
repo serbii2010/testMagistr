@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace testMagistr
@@ -23,15 +20,23 @@ namespace testMagistr
             {
                 Separator separator = new Separator();
                 Entropy entropy = new Entropy();
-                var H = entropy.getEntropy(separator.getWords(openFileDialog.FileName));
-                textBox1.Text = H.ToString();
-
-                for (int i = 2; i < 30; i++)
+                //var H = entropy.getEntropy(separator.getWords(openFileDialog.FileName));
+                //textBox1.Text = H.ToString();
+                /*
+                for (var i = 2; i < 30; i++)
                 {
                     H = entropy.getEntropy(separator.getDoubleWords(openFileDialog.FileName,i));
                     textBox1.Text += "\r\n" + H;
+                }*/
+
+                double depth = Depth.getDepth(separator.getWords(openFileDialog.FileName));
+                textBox1.Text = depth.ToString();
+                for (var i = 2; i < 30; i++)
+                {
+                    depth = Depth.getDepth(separator.getDoubleWords(openFileDialog.FileName, i));
+                    textBox1.Text += "\r\n" + depth;
                 }
-                
+
             }
 
            
