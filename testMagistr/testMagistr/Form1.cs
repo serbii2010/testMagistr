@@ -29,7 +29,7 @@ namespace testMagistr
                 for (int i = 2; i < 30; i++)
                 {
                     H = entropy.getEntropy(separator.getDoubleWords(openFileDialog.FileName,i));
-                    textBox1.Text += "\r\n" + H.ToString();
+                    textBox1.Text += "\r\n" + H;
                 }
                 
             }
