@@ -1,41 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace testMagistr
 {
     internal class Entropy
     {
-        public double getEntropy(List<string> words)
+        public static double GetEntropy(List<string> words)
         {
             var dictionary = new Dictionary<string, int>();
 
-            Mutex mutex = new Mutex();
-            Parallel.ForEach(words, word =>
+            foreach (var word in words)
             {
-                mutex.WaitOne();
                 if (dictionary.ContainsKey(word))
                 {
                     dictionary[word]++;
                 }
                 else
-                {                    
+                {
                     dictionary.Add(word, 1);
                 }
-                mutex.ReleaseMutex();
-            });
+            }
 
-            double H = 0;
-
-            Parallel.ForEach(words, word =>
-            {
-                mutex.WaitOne();
-                H += (double)dictionary[word] / words.Count * Math.Log((double)dictionary[word] / words.Count,2);
-                mutex.ReleaseMutex();
-            });
+            var H = dictionary.Sum(i =>
+                (double) i.Value/words.Count*Math.Log((double) i.Value/words.Count, 2)
+            );
 
             H *= -1;
             return H;

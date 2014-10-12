@@ -28,16 +28,14 @@ namespace testMagistr
             _depth = 0;
             foreach (var i in dictionary)
             {
-                int interval=1;
+                int interval=0;
                 foreach (var word in text)
                 {
-                    if (i.Key!=word)
-                    {
-                        interval++;
-                    }
-                    else
+                    interval++;
+                    if (i.Key==word)
                     {
                         _depth += Math.Log(interval, 2);
+                        interval = 0;
                     }
                 }
             }
