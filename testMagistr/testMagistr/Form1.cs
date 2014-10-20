@@ -16,7 +16,7 @@ namespace testMagistr
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != null )
             {
-                Entropy entropy = new Entropy();
+                /*Entropy entropy = new Entropy();
                 var H = Entropy.GetEntropy(Separator.GetWords(openFileDialog1.FileName, checkBox1.Checked));
                 textBox1.Text = H.ToString();
                 
@@ -24,13 +24,13 @@ namespace testMagistr
                 {
                     H = Entropy.GetEntropy(Separator.GetBlockWords(openFileDialog1.FileName,i,checkBox1.Checked));
                     textBox1.Text += "\r\n" + H;
-                }
+                }*/
                 
-                double depth = Depth.getDepth(Separator.GetWords(openFileDialog1.FileName, checkBox1.Checked));
+                double depth = Remoteness.getRemoteness(Separator.GetWords(openFileDialog1.FileName, checkBox1.Checked));
                 textBox2.Text = depth.ToString();
-                for (var i = 2; i < 5; i++)
+                for (var i = 2; i < 7; i++)
                 {
-                    depth = Depth.getDepth(Separator.GetBlockWords(openFileDialog1.FileName, i, checkBox1.Checked));
+                    depth = Remoteness.getRemoteness(Separator.GetBlockWords(openFileDialog1.FileName, i, checkBox1.Checked));
                     textBox2.Text += "\r\n" + depth;
                 }
 

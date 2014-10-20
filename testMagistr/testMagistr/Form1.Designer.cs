@@ -77,9 +77,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(226, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "глубины";
+            this.label2.Text = "удаленности";
             // 
             // openFileDialog1
             // 
