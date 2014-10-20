@@ -43,7 +43,7 @@ namespace testMagistr
             else
             {
                 text = Regex.Replace(text, "[^\\w\\s]+", "");
-                text = Regex.Replace(text, "[\\s]+", " ");
+                text = Regex.Replace(text, "[\\s]+", "");
             }
 
             Random rand = new Random();
