@@ -27,7 +27,8 @@ namespace testMagistr
             }
 
             var H = cDictionary.Sum(i =>
-                (double)i.Value / length * Math.Log((double)i.Value / length, 2)
+                ((double)i.Value / length) * Math.Log((double)i.Value / length, 2)
+                //((double)i.Value / cDictionary.Count) * Math.Log((double)i.Value / cDictionary.Count, 2)
                 );
 
             return -H;
@@ -35,6 +36,7 @@ namespace testMagistr
 
         public static double getEntropyWords(List<string> words)
         {
+            #region создание словаря
             var dictionary = new Dictionary<string, int>();
             var length = 0;
             foreach (var word in words)
@@ -49,7 +51,14 @@ namespace testMagistr
                     dictionary.Add(word, 1);
                 }
             }
+            #endregion
 
+            var Hslova = dictionary.Sum(i =>
+                ((double) i.Value/words.Count)*Math.Log((double)i.Value/words.Count, 2)
+            );
+
+
+            #region newEntropy
             var entropyWords = new List<double>();
             foreach (var i in dictionary)
             {
@@ -71,14 +80,17 @@ namespace testMagistr
                 entropyWords.Add(Hbs * i.Value * i.Key.Length);
             }
 
-            var H = entropyWords.Sum(i => i) / length;
+            var H = (entropyWords.Sum(i => i) / length)+Hslova;
+            #endregion
 
+            #region oldEntropy
             /*
             var H = dictionary.Sum(i =>
                 (double) i.Value/words.Count*Math.Log((double) i.Value/words.Count, 2)
             );
 
-            H *= -1;*/
+            */
+            #endregion
             return -H;
         }
     }
