@@ -1,22 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace testMagistr
 {
     internal class Entropy
     {
-        public float getEntropy(List<string> words)
+        public static double getEntropyChar(List<string> words)
         {
-            var dictionary = new Dictionary<string, int>();
-
-            Mutex mutex = new Mutex();
-            Parallel.ForEach(words, word =>
+            Dictionary<char, int> cDictionary = new Dictionary<char, int>();
+            int length = 0;
+            foreach (string word in words)
             {
-                mutex.WaitOne();
+                length += word.Length;
+                foreach (char c in word)
+                {
+                    if (cDictionary.ContainsKey(c))
+                    {
+                        cDictionary[c]++;
+                    }
+                    else
+                    {
+                        cDictionary.Add(c, 1);
+                    }
+                }
+            }
+
+            var H = cDictionary.Sum(i =>
+                ((double)i.Value / length) * Math.Log((double)i.Value / length, 2)
+                //((double)i.Value / cDictionary.Count) * Math.Log((double)i.Value / cDictionary.Count, 2)
+                );
+
+            return -H;
+        }
+
+        public static double getEntropyWords(List<string> words)
+        {
+            #region создание словаря
+            var dictionary = new Dictionary<string, int>();
+            var length = 0;
+            foreach (var word in words)
+            {
+                length += word.Length;
                 if (dictionary.ContainsKey(word))
                 {
                     dictionary[word]++;
@@ -25,20 +50,48 @@ namespace testMagistr
                 {
                     dictionary.Add(word, 1);
                 }
-                mutex.ReleaseMutex();
-            });
+            }
+            #endregion
 
-            double H = 0;
+            var Hslova = dictionary.Sum(i =>
+                ((double) i.Value/words.Count)*Math.Log((double)i.Value/words.Count, 2)
+            );
 
-            Parallel.ForEach(words, word =>
+
+            #region newEntropy
+            var entropyWords = new List<double>();
+            foreach (var i in dictionary)
             {
-                mutex.WaitOne();
-                H += (double)dictionary[word] / words.Count * Math.Log((double)dictionary[word] / words.Count);
-                mutex.ReleaseMutex();
-            });
+                Dictionary<char, int> cDictionary = new Dictionary<char, int>();
+                foreach (char c in i.Key)
+                {
+                    if (cDictionary.ContainsKey(c))
+                    {
+                        cDictionary[c]++;
+                    }
+                    else
+                    {
+                        cDictionary.Add(c, 1);
+                    }
+                }
+                var Hbs = cDictionary.Sum(j =>
+                    ((double)j.Value / i.Key.Length) * Math.Log((double)j.Value / i.Key.Length)
+                    );
+                entropyWords.Add(Hbs * i.Value * i.Key.Length);
+            }
 
-            H *= -1;
-            return (float)H;
+            var H = (entropyWords.Sum(i => i) / length)+Hslova;
+            #endregion
+
+            #region oldEntropy
+            /*
+            var H = dictionary.Sum(i =>
+                (double) i.Value/words.Count*Math.Log((double) i.Value/words.Count, 2)
+            );
+
+            */
+            #endregion
+            return -H;
         }
     }
 }

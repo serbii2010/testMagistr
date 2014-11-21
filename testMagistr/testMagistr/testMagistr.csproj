@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="body.cs" />
+    <Compile Include="Remoteness.cs" />
     <Compile Include="Entropy.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
