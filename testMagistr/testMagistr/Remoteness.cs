@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace testMagistr
 {
-    class Remoteness
+    internal class Remoteness
     {
         public static double getRemotenessChar(List<string> text)
         {
-            int length=0;
+            int length = 0;
             var dictionary = new Dictionary<char, int>();
 
             foreach (var s in text)
@@ -38,7 +39,7 @@ namespace testMagistr
                 foreach (char c1 in text.SelectMany(s => s))
                 {
                     interval++;
-                    if (c.Key==c1)
+                    if (c.Key == c1)
                     {
                         _depth += Math.Log(interval, 2);
                         interval = 0;
@@ -47,6 +48,7 @@ namespace testMagistr
             }
             return _depth/length;
         }
+
         public static double getRemoteness(List<string> text)
         {
             var dictionary = new List<string>();
@@ -56,7 +58,56 @@ namespace testMagistr
                 dictionary.Add(word);
             }
             double _depth = 0;
+
+            foreach (var s in dictionary)
+            {
+                var interval = 0;
+                foreach (string word in text)
+                {
+                    interval++;
+                    if (s == word)
+                    {
+                        _depth += Math.Log(interval, 2);
+                        interval = 0;
+                    }
+                }
+            }
+
+            Form1.arrayRemotenessWord.Add(_depth);
             
+            double _remotenessChar = 0;
+
+            foreach (var word in text)
+            {
+                var dicChar = new List<char>();
+                foreach (char c in word)
+                {
+                    if (!dicChar.Contains(c))
+                    {
+                        dicChar.Add(c);
+                    }
+                }
+                var interval = 0;
+                foreach (char c in dicChar)
+                {
+                    foreach (char c1 in word)
+                    {
+                        interval++;
+                        if (c == c1)
+                        {
+                            _remotenessChar += Math.Log(interval, 2) / word.Length;
+                            _depth += Math.Log(interval, 2)/word.Length;
+                            interval = 0;
+                        }
+                    }
+                }
+            }
+
+            Form1.arrayRemotenessChar.Add(_remotenessChar);
+            
+            #region средняя удаленность
+
+            /*
             Mutex mutex = new Mutex();
             Parallel.ForEach(dictionary, j =>
             {
@@ -83,9 +134,12 @@ namespace testMagistr
                         }
                     }
                 }
-            }
-                );
-             
+            });*/
+
+            #endregion
+
+            #region старая удаленность
+
             /*
             foreach (var i in dictionary)
             {
@@ -126,7 +180,9 @@ namespace testMagistr
                 }
             }*/
 
-            return _depth / text.Count;
+            #endregion
+
+            return _depth/text.Count;
         }
     }
 }

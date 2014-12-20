@@ -34,8 +34,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -53,7 +55,7 @@
             this.textBox1.Location = new System.Drawing.Point(13, 36);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(207, 283);
+            this.textBox1.Size = new System.Drawing.Size(144, 283);
             this.textBox1.TabIndex = 1;
             // 
             // label1
@@ -67,16 +69,16 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(226, 36);
+            this.textBox2.Location = new System.Drawing.Point(163, 36);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(168, 283);
+            this.textBox2.Size = new System.Drawing.Size(134, 283);
             this.textBox2.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(226, 17);
+            this.label2.Location = new System.Drawing.Point(160, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 4;
@@ -86,33 +88,51 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(401, 54);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(157, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "нормализаванный текст?";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(401, 78);
+            this.checkBox2.Location = new System.Drawing.Point(137, 331);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(122, 17);
             this.checkBox2.TabIndex = 6;
             this.checkBox2.Text = "перемешать слова";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(304, 36);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(190, 283);
+            this.textBox3.TabIndex = 7;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(500, 36);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(197, 283);
+            this.textBox4.TabIndex = 8;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(137, 354);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(174, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "случайная длина псевдослов";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 360);
-            this.Controls.Add(this.checkBox2);
+            this.ClientSize = new System.Drawing.Size(806, 473);
             this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
@@ -133,8 +153,10 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

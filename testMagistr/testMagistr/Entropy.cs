@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace testMagistr
 {
@@ -8,7 +9,7 @@ namespace testMagistr
     {
         public static double getEntropyChar(List<string> words)
         {
-            Dictionary<char, int> cDictionary = new Dictionary<char, int>();
+            var cDictionary = new Dictionary<char, int>();
             int length = 0;
             foreach (string word in words)
             {
@@ -54,15 +55,17 @@ namespace testMagistr
             #endregion
 
             var Hslova = dictionary.Sum(i =>
-                ((double) i.Value/words.Count)*Math.Log((double)i.Value/words.Count, 2)
+                ((double)i.Value / words.Count) * Math.Log((double)i.Value / words.Count, 2)
             );
+
+            Form1.arrayEntropyWord.Add(Hslova);
 
 
             #region newEntropy
             var entropyWords = new List<double>();
             foreach (var i in dictionary)
             {
-                Dictionary<char, int> cDictionary = new Dictionary<char, int>();
+                var cDictionary = new Dictionary<char, int>();
                 foreach (char c in i.Key)
                 {
                     if (cDictionary.ContainsKey(c))
@@ -80,7 +83,9 @@ namespace testMagistr
                 entropyWords.Add(Hbs * i.Value * i.Key.Length);
             }
 
-            var H = (entropyWords.Sum(i => i) / length)+Hslova;
+            var H = (entropyWords.Sum(i => i) / length) + Hslova;
+
+            Form1.arrayEntropyChar.Add((H-Hslova)*(-1));
             #endregion
 
             #region oldEntropy

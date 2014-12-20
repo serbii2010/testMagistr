@@ -10,23 +10,18 @@ namespace testMagistr
 {
     internal class Separator
     {
-        public static List<string> GetWords(string path, bool norm, bool mix = false)
+        public static List<string> GetWords(string path, bool mix = false)
         {
             string[] buffer;
             var sr = new StreamReader(path);
             string text = sr.ReadToEnd().ToLower();
 
-            if (norm)
-            {
-                text = Regex.Replace(text, "\r", "");
-                buffer = text.Split('\n');
-            }
-            else
-            {
-                text = Regex.Replace(text, "[^\\w\\s]+", "");
-                text = Regex.Replace(text, "[\\s]+", " ");
-                buffer = text.Split(' ');
-            }
+            text = Regex.Replace(text, "\r", " ");
+            text = Regex.Replace(text, "\n", " ");
+            text = Regex.Replace(text, "[^\\w\\s]+", "");
+            text = Regex.Replace(text, "[\\s]+", " ");
+            buffer = text.Trim().Split(' ');
+
             List<string> ret = buffer.ToList();
 
             if (mix)
@@ -49,29 +44,31 @@ namespace testMagistr
             return ret;
         }
 
-        public static List<string> GetBlockWords(string path, int lengthBlok, bool norm)
+        public static List<string> GetBlockWords(string path, int lengthBlok, bool random = false)
         {
             var sr = new StreamReader(path);
             string text = sr.ReadToEnd().ToLower();
 
-            if (norm)
-            {
-                text = Regex.Replace(text, "\r", "");
-            }
-            else
-            {
-                text = Regex.Replace(text, "[^\\w\\s]+", "");
-                text = Regex.Replace(text, "[\\s]+", "");
-            }
+            text = Regex.Replace(text, "\r", " ");
+            text = Regex.Replace(text, "\n", " ");
+            text = Regex.Replace(text, "[^\\w\\s]+", "");
+            text = Regex.Replace(text, "[\\s]+", "");
+            text = text.Trim();
 
             Random rand = new Random();
             List<string> buffer = new List<string>();
-            //lengthBlok = rand.Next(1, 5);
+            if (random)
+            {
+                lengthBlok = RandomGenerator.nextRandom(rand.NextDouble());
+            }
             while (text.Length > lengthBlok)
             {
                 buffer.Add(text.Substring(0, lengthBlok));
                 text = text.Remove(0, lengthBlok);
-                //lengthBlok = rand.Next(1, 5);
+                if (random)
+                {
+                    lengthBlok = RandomGenerator.nextRandom(rand.NextDouble());
+                }
             }
             if (text.Length > 0)
             {
@@ -79,6 +76,23 @@ namespace testMagistr
             }
 
             return buffer;
+        }
+
+        public static Dictionary<string, int> createDict(List<string> words)
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            foreach (var word in words)
+            {
+                if (dict.ContainsKey(word))
+                {
+                    dict[word]++;
+                }
+                else
+                {
+                    dict.Add(word, 1);
+                }
+            }
+            return dict;
         }
     }
 }
