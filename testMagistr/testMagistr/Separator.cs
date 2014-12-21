@@ -80,7 +80,7 @@ namespace testMagistr
 
         public static Dictionary<string, int> createDict(List<string> words)
         {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
+            var dict = new Dictionary<string, int>();
             foreach (var word in words)
             {
                 if (dict.ContainsKey(word))

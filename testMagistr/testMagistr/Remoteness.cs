@@ -9,10 +9,12 @@ using System.Windows.Forms;
 
 namespace testMagistr
 {
-    internal class Remoteness
+    internal static class Remoteness
     {
         public static double getRemotenessChar(List<string> text)
         {
+            #region создаем словарь
+            
             int length = 0;
             var dictionary = new Dictionary<char, int>();
 
@@ -31,6 +33,9 @@ namespace testMagistr
                     }
                 }
             }
+
+            #endregion
+
             double _depth = 0;
 
             foreach (var c in dictionary)
@@ -52,13 +57,15 @@ namespace testMagistr
         public static double getRemoteness(List<string> text)
         {
             var dictionary = new List<string>();
-
+            
+            //создаем словарь
             foreach (var word in text.Where(word => !dictionary.Contains(word)))
             {
                 dictionary.Add(word);
             }
             double _depth = 0;
 
+            //вычисляем удаленность удаленность между словами
             foreach (var s in dictionary)
             {
                 var interval = 0;
@@ -73,7 +80,7 @@ namespace testMagistr
                 }
             }
 
-            Form1.arrayRemotenessWord.Add(_depth);
+            Form1.arrayRemotenessWord.Add(_depth/text.Count);
             
             double _remotenessChar = 0;
 
@@ -103,7 +110,7 @@ namespace testMagistr
                 }
             }
 
-            Form1.arrayRemotenessChar.Add(_remotenessChar);
+            Form1.arrayRemotenessChar.Add(_remotenessChar/text.Count);
             
             #region средняя удаленность
 
@@ -135,50 +142,6 @@ namespace testMagistr
                     }
                 }
             });*/
-
-            #endregion
-
-            #region старая удаленность
-
-            /*
-            foreach (var i in dictionary)
-            {
-                var interval = 0;
-                var divChar = new List<char>();
-                foreach (var c2 in i.Where(c2 => !divChar.Contains(c2)))
-                {
-                    divChar.Add(c2);
-                }
-                foreach (var cd in divChar)
-                {
-                    foreach (var s in text)
-                    {
-                        foreach (var c in s)
-                        {
-                            interval++;
-                            if (cd == c && i == s)
-                            {
-                                _depth += Math.Log(interval, 2);
-                                interval = 0;
-                            }
-                        }
-                    }
-                }
-            }*/
-            /*
-            foreach (var i in dictionary)
-            {
-                int interval=0;
-                foreach (var word in text)
-                {
-                    interval++;
-                    if (i.Key==word)
-                    {
-                        _depth += Math.Log(interval, 2);
-                        interval = 0;
-                    }
-                }
-            }*/
 
             #endregion
 

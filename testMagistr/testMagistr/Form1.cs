@@ -21,21 +21,37 @@ namespace testMagistr
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //очистка массивов
+            #region очистка массивов
+            List<double> arrayRemotenessWord = new List<double>();
+            List<double> arrayRemotenessChar = new List<double>();
+            List<double> arrayEntropyWord = new List<double>();
+            List<double> arrayEntropyChar = new List<double>();
+            #endregion
+
             var openFileDialog1 = new OpenFileDialog();
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != "")
             {
-
                 #region заполнение распределения
+
                 RandomGenerator.probabiliti = new Dictionary<int, double>();
                 var words = Separator.GetWords(openFileDialog1.FileName);
                 RandomGenerator.setProbabiliti(words, words.Count);
+
                 #endregion
 
                 #region вывод энтропии и удаленности без учета слов и с оригинальным разбиением
 
-
                 var text = Separator.GetWords(openFileDialog1.FileName);
+
+                double Lsr = 0;
+                foreach (var s in text)
+                {
+                    Lsr += s.Length;
+                }
+                Lsr /= text.Count;
+
                 var H = Entropy.getEntropyChar(text);
                 textBox1.Text = H.ToString();
                 H = Entropy.getEntropyWords(text);
@@ -44,7 +60,7 @@ namespace testMagistr
                 double depth = Remoteness.getRemotenessChar(text);
                 textBox2.Text = depth.ToString();
                 depth = Remoteness.getRemoteness(text);
-                textBox2.Text += "\r\n" + depth + "\t" + text.Count;
+                textBox2.Text += "\r\n" + depth + "\t" + text.Count + "\t" + Lsr;
 
                 #endregion
 
@@ -53,14 +69,22 @@ namespace testMagistr
                 for (var i = 1; i <= 10; i++)
                 {
                     text = Separator.GetBlockWords(openFileDialog1.FileName, i, checkBox1.Checked);
+                    Lsr = 0;
+                    foreach (var s in text)
+                    {
+                        Lsr += s.Length;
+                    }
+                    Lsr /= text.Count;
                     H = Entropy.getEntropyWords(text);
                     depth = Remoteness.getRemoteness(text);
-                    textBox1.Text += "\r\n" + H ;
-                    textBox2.Text += "\r\n" + depth + "\t" + text.Count;
+                    textBox1.Text += "\r\n" + H;
+                    textBox2.Text += "\r\n" + depth + "\t" + text.Count + "\t" + Lsr;
+
+                    textBox3.Text += arrayEntropyWord[i] + "\t" + arrayEntropyChar[i] + "\n";
+                    textBox4.Text += arrayRemotenessWord[i] + "\t" + arrayRemotenessChar[i] + "\n";
                 }
 
                 #endregion
-
 
                 #region если надо переставить слова
 
@@ -69,15 +93,16 @@ namespace testMagistr
                     for (int i = 0; i < 10; i++)
                     {
                         depth = Remoteness.getRemoteness(
-                        Separator.GetWords(openFileDialog1.FileName, checkBox2.Checked)
-                        );
+                            Separator.GetWords(openFileDialog1.FileName, checkBox2.Checked)
+                            );
                         textBox2.Text += "\r\n" + depth;
                     }
-
                 }
+
                 #endregion
 
                 #region парралельное вычисление удаленности разбитого на блоки текста
+
                 /*
                 else
                 {
@@ -97,16 +122,6 @@ namespace testMagistr
                     }
                 }
                 */
-                #endregion
-
-
-                #region вывод характеристик по кускам
-
-                //for (int i = 0; i < 10; i++)
-                //{
-                //    textBox3.Text += arrayEntropyWord[i] + "\t" + arrayEntropyChar[i] + "\n";
-                //    textBox4.Text += arrayRemotenessWord[i] + "\t" + arrayRemotenessChar[i] + "\n";
-                //}
 
                 #endregion
 

@@ -58,7 +58,7 @@ namespace testMagistr
                 ((double)i.Value / words.Count) * Math.Log((double)i.Value / words.Count, 2)
             );
 
-            Form1.arrayEntropyWord.Add(Hslova);
+            Form1.arrayEntropyWord.Add(Hslova*-1);
 
 
             #region newEntropy
